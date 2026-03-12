@@ -3,40 +3,174 @@
     "name": "nanoloan",
     "slug": "nanoloan",
     "version": "1.0.0",
-
     "scheme": "nanoloan",
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/images/logo.png"
     },
-    "plugins": ["expo-router"],
+    "plugins": [
+      "expo-router",
+      "./plugins/android-manifest-fix.js",
+      "./plugins/android-release-signing.js",
+      "./plugins/android-play-console-fixes.js",
+      "./plugins/android-proguard-rules.js",
+      [
+        "expo-navigation-bar",
+        {
+          "enforceContrast": true,
+          "barStyle": "light",
+          "visibility": "visible"
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#ffffff",
+          "image": "./assets/images/splash-icon.png",
+          "dark": {
+            "image": "./assets/images/splash-icon-dark.png",
+            "backgroundColor": "#E5FCFF"
+          },
+          "imageWidth": 200
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 36,
+            "targetSdkVersion": 36,
+            "minSdkVersion": 24,
+            "packagingOptions": {
+              "pickFirst": [
+                "**/libc++_shared.so",
+                "**/libjsc.so",
+                "**/libfb.so",
+                "**/libhermes.so",
+                "**/libhermes-executor-debug.so",
+                "**/libhermes-executor-release.so",
+                "**/libhermes-inspector.so"
+              ],
+              "exclude": [
+                "META-INF/DEPENDENCIES",
+                "META-INF/LICENSE",
+                "META-INF/LICENSE.txt",
+                "META-INF/license.txt",
+                "META-INF/NOTICE",
+                "META-INF/NOTICE.txt",
+                "META-INF/notice.txt",
+                "META-INF/ASL2.0",
+                "META-INF/INDEX.LIST",
+                "**/AndroidUIScheduler$*.class"
+              ]
+            },
+            "enableProguardInReleaseBuilds": true,
+            "enableShrinkResourcesInReleaseBuilds": false,
+            "extraMavenRepos": [],
+            "usesCleartextTraffic": false
+          }
+        }
+      ],
+      [
+        "react-native-permissions",
+        {
+          "permissions": [
+            "CAMERA"
+          ],
+          "iosPermissions": [
+            "Camera"
+          ]
+        }
+      ],
+      "expo-font",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/notification-icon.png",
+          "color": "#0DB7AF",
+          "sounds": [
+            "./assets/sounds/ringtone.mp3"
+          ]
+        }
+      ],
+      "@react-native-community/datetimepicker"
+    ],
     "experiments": {
       "typedRoutes": true,
-
       "tsconfigPaths": true
     },
-
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
-
+    "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "light",
-
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/images/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/images/logo.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.nano.loan.app",
+      "permissions": [
+        "WAKE_LOCK",
+        "CAMERA",
+        "INTERNET",
+        "ACCESS_NETWORK_STATE",
+        "CHANGE_NETWORK_STATE",
+        "MODIFY_AUDIO_SETTINGS",
+        "FOREGROUND_SERVICE",
+        "RECEIVE_BOOT_COMPLETED",
+        "android.permission.WAKE_LOCK",
+        "android.permission.CAMERA",
+        "android.permission.INTERNET",
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.CHANGE_NETWORK_STATE",
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.RECEIVE_BOOT_COMPLETED"
+      ],
+      "compileSdkVersion": 36,
+      "targetSdkVersion": 36,
+      "minSdkVersion": 24,
+      "versionCode": 3,
+      "compileOptions": {
+        "sourceCompatibility": "1.8",
+        "targetCompatibility": "1.8"
+      },
+      "gradleProperties": {
+        "android.enableDexingArtifactTransform.desugaring": "false",
+        "android.packagingOptions.pickFirsts": "**/libc++_shared.so,**/libjsc.so,**/libfb.so,**/libhermes.so",
+        "android.packagingOptions.excludes": "META-INF/DEPENDENCIES,META-INF/LICENSE,META-INF/LICENSE.txt,META-INF/NOTICE,META-INF/NOTICE.txt"
+      },
+      "extraGradlePlugins": [
+        {
+          "id": "com.google.gms.google-services",
+          "version": "4.4.3"
+        }
+      ],
+      "dependencies": [
+        "implementation platform('com.google.firebase:firebase-bom:34.2.0')",
+        "implementation 'com.google.firebase:firebase-analytics'"
+      ],
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false
+    },
+    "extra": {
+      "router": {},
+      "apiUrl": "https://backend.nanoloan.com"
     }
   }
 }

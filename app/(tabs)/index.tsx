@@ -1,15 +1,15 @@
-import { Stack } from 'expo-router';
-
 import { StyleSheet, View } from 'react-native';
 
-import { ScreenContent } from '@/components/ScreenContent';
+import * as NavigationBar from 'expo-navigation-bar';
 
 export default function Home() {
+
+  const visibility = NavigationBar.useVisibility()
+  console.log(visibility)
   return (
     <>
-      <Stack.Screen options={{ title: 'Tab One' }} />
       <View style={styles.container}>
-        <ScreenContent path="app/(tabs)/index.tsx" title="Tab One" />
+
       </View>
     </>
   );

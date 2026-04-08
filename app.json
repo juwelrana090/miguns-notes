@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "nanoloan",
-    "slug": "nanoloan",
+    "name": "Miguns Call Notes",
+    "slug": "miguns-call-notes",
     "version": "1.0.0",
-    "scheme": "nanoloan",
+    "scheme": "miguns-call-notes",
     "platforms": [
       "ios",
       "android"
@@ -16,9 +16,7 @@
     "plugins": [
       "expo-router",
       "./plugins/android-manifest-fix.js",
-      "./plugins/android-release-signing.js",
-      "./plugins/android-play-console-fixes.js",
-      "./plugins/android-proguard-rules.js",
+      "./plugins/android-jetifier.js",
       [
         "expo-navigation-bar",
         {
@@ -32,10 +30,6 @@
         {
           "backgroundColor": "#ffffff",
           "image": "./assets/images/splash-icon.png",
-          "dark": {
-            "image": "./assets/images/splash-icon-dark.png",
-            "backgroundColor": "#E5FCFF"
-          },
           "imageWidth": 200
         }
       ],
@@ -46,6 +40,12 @@
             "compileSdkVersion": 36,
             "targetSdkVersion": 36,
             "minSdkVersion": 24,
+            "gradleProperties": {
+              "org.gradle.jvmargs": "-Xmx8192m -XX:MaxMetaspaceSize=2048m -XX:+HeapDumpOnOutOfMemoryError",
+              "org.gradle.parallel": "false",
+              "org.gradle.daemon": "true",
+              "android.enableJetifier": "false"
+            },
             "packagingOptions": {
               "pickFirst": [
                 "**/libc++_shared.so",
@@ -69,6 +69,7 @@
                 "**/AndroidUIScheduler$*.class"
               ]
             },
+            "enableJetifier": true,
             "enableProguardInReleaseBuilds": true,
             "enableShrinkResourcesInReleaseBuilds": false,
             "extraMavenRepos": [],
@@ -76,39 +77,24 @@
           }
         }
       ],
-      [
-        "react-native-permissions",
-        {
-          "permissions": [
-            "CAMERA"
-          ],
-          "iosPermissions": [
-            "Camera"
-          ]
-        }
-      ],
       "expo-font",
       [
-        "expo-notifications",
+        "expo-av",
         {
-          "icon": "./assets/images/notification-icon.png",
-          "color": "#0DB7AF",
-          "sounds": [
-            "./assets/sounds/ringtone.mp3"
-          ]
+          "microphonePermission": "Allow Miguns Call Notes to record audio during calls."
         }
       ],
-      "@react-native-community/datetimepicker"
+      "expo-sqlite"
     ],
     "experiments": {
       "typedRoutes": true,
       "tsconfigPaths": true
     },
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/splash-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -123,24 +109,16 @@
         "foregroundImage": "./assets/images/logo.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.nano.loan.app",
+      "package": "com.miguns.callnotes",
       "permissions": [
-        "WAKE_LOCK",
-        "CAMERA",
+        "RECORD_AUDIO",
+        "FOREGROUND_SERVICE",
+        "FOREGROUND_SERVICE_MICROPHONE",
+        "SYSTEM_ALERT_WINDOW",
+        "RECEIVE_BOOT_COMPLETED",
         "INTERNET",
         "ACCESS_NETWORK_STATE",
-        "CHANGE_NETWORK_STATE",
-        "MODIFY_AUDIO_SETTINGS",
-        "FOREGROUND_SERVICE",
-        "RECEIVE_BOOT_COMPLETED",
-        "android.permission.WAKE_LOCK",
-        "android.permission.CAMERA",
-        "android.permission.INTERNET",
-        "android.permission.ACCESS_NETWORK_STATE",
-        "android.permission.CHANGE_NETWORK_STATE",
-        "android.permission.MODIFY_AUDIO_SETTINGS",
-        "android.permission.FOREGROUND_SERVICE",
-        "android.permission.RECEIVE_BOOT_COMPLETED"
+        "WAKE_LOCK"
       ],
       "compileSdkVersion": 36,
       "targetSdkVersion": 36,
@@ -155,22 +133,8 @@
         "android.packagingOptions.pickFirsts": "**/libc++_shared.so,**/libjsc.so,**/libfb.so,**/libhermes.so",
         "android.packagingOptions.excludes": "META-INF/DEPENDENCIES,META-INF/LICENSE,META-INF/LICENSE.txt,META-INF/NOTICE,META-INF/NOTICE.txt"
       },
-      "extraGradlePlugins": [
-        {
-          "id": "com.google.gms.google-services",
-          "version": "4.4.3"
-        }
-      ],
-      "dependencies": [
-        "implementation platform('com.google.firebase:firebase-bom:34.2.0')",
-        "implementation 'com.google.firebase:firebase-analytics'"
-      ],
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
-    },
-    "extra": {
-      "router": {},
-      "apiUrl": "https://backend.nanoloan.com"
     }
   }
 }

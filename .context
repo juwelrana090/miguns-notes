@@ -1,0 +1,80 @@
+{
+  "project": "miguns-call-notes",
+  "display_name": "Miguns Call Notes",
+  "type": "floating-overlay-transcription",
+  "platform": "android",
+  "sdk": "expo-54",
+  "react_native": "0.81.5",
+  "build_type": "bare_workflow",
+  "expo_go_compatible": false,
+  "android_package": "com.miguns.callnotes",
+  "expo_slug": "miguns-call-notes",
+  "expo_scheme": "miguns-call-notes",
+  "has_authentication": false,
+  "has_backend": false,
+  "has_redux": false,
+  "has_firebase": false,
+  "database": "expo-sqlite-v15-async",
+  "default_language": "bn-BD",
+  "supported_languages": [
+    "bn-BD", "bn-IN", "en-US", "en-GB",
+    "hi-IN", "ar-SA", "zh-CN", "fr-FR",
+    "de-DE", "es-ES", "pt-BR", "ru-RU",
+    "ja-JP", "ko-KR", "tr-TR"
+  ],
+  "last_updated": "2026-04-08",
+  "status": "mvp_complete",
+  "completed_features": [
+    "session-list-home-screen",
+    "live-recording-screen",
+    "language-picker-15-languages",
+    "speech-to-text-auto-restart-loop",
+    "speaker-labeling-you-caller",
+    "manual-note-input",
+    "session-review-screen",
+    "txt-export-and-share",
+    "sqlite-persistence",
+    "remove-auth-completely",
+    "remove-redux-firebase"
+  ],
+  "pending_features": [
+    "floating-overlay-system-alert-window",
+    "search-across-sessions",
+    "audio-playback",
+    "bangla-device-testing"
+  ],
+  "known_bugs": [],
+  "critical_files": [
+    "db/database.ts",
+    "hooks/useSpeechToText.ts",
+    "app/recording.tsx",
+    "constants/languages.ts",
+    "app.json"
+  ],
+  "do_not_touch": [
+    "constants/languages.ts",
+    "hooks/useTimer.ts",
+    "utils/exportNotes.ts"
+  ],
+  "permissions_required": [
+    "RECORD_AUDIO",
+    "FOREGROUND_SERVICE",
+    "FOREGROUND_SERVICE_MICROPHONE",
+    "SYSTEM_ALERT_WINDOW",
+    "RECEIVE_BOOT_COMPLETED"
+  ],
+  "key_dependencies": {
+    "@react-native-voice/voice": "speech-recognition",
+    "expo-av": "audio-recording",
+    "expo-sqlite": "v15-local-database",
+    "expo-keep-awake": "screen-on-during-call",
+    "expo-sharing": "export-notes",
+    "expo-file-system": "write-txt-file"
+  },
+  "build_commands": {
+    "install": "npm install",
+    "prebuild": "npx expo prebuild --clean",
+    "run_android": "npx expo run:android",
+    "eas_build": "eas build --platform android --profile development"
+  }
+}

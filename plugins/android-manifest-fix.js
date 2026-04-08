@@ -42,8 +42,21 @@ function addNotificationColorMetaData(androidManifest) {
   return androidManifest;
 }
 
+function addToolsNamespace(androidManifest) {
+  if (!androidManifest.manifest.$) {
+    androidManifest.manifest.$ = {};
+  }
+
+  if (!androidManifest.manifest.$["xmlns:tools"]) {
+    androidManifest.manifest.$["xmlns:tools"] = "http://schemas.android.com/tools";
+  }
+
+  return androidManifest;
+}
+
 module.exports = function withNotificationColorFix(config) {
   return withAndroidManifest(config, (config) => {
+    config.modResults = addToolsNamespace(config.modResults);
     config.modResults = addNotificationColorMetaData(config.modResults);
     return config;
   });
